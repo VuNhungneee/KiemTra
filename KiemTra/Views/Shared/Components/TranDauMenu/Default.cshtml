@@ -1,0 +1,128 @@
+﻿@model IEnumerable<Trandau>
+
+        @foreach (var item in Model.Take(7))
+        {
+            var getUrl = "https://localhost:7085/api/TrongTai/" + item.TranDauId.Trim();
+            <li><a style="cursor:pointer" onclick="showTrongTaiByTranDau('@getUrl')">@item.TranDauId</a></li>
+        }
+
+
+
+<script>
+    function showTrongTaiByTranDau(getUrl) {
+        var str = '';
+        $.ajax({
+            type: 'GET',
+            url: getUrl,
+            dataType: 'json',
+            success: function (data) {
+                $.each(data, function (key, val) {
+                    str += '<li class="span3">';
+                    str += '    <div class="product-box">';
+                    var linkImage = "../Images/" + $.trim(val.anh);
+                    str += '       <p><a href="product_detail.html"><img src="' + linkImage + '" alt="" style="height:400px;width:400px"></a></p>';
+                    str += '       <a href="#" onclick="suaCauThu(\'' + $.trim(val.cauThuId) + '\')" class="title">' + $.trim(val.hoVaTen) + ')</a><br>';
+                    str += '           <a href="products.html" class="category">' + $.trim(val.viTri) + '</a>';
+                    str += '           <p class="price">' + $.trim(val.tranDauId) + '</p>';
+                    str += '    </div>';
+                    str += '  </li>';
+
+                   
+                });
+                $('#displayCauThu').html(str);
+            },
+            error: function (xhr) {
+                alert(xhr.responseText);
+            }
+        });
+    }
+    function suaCauThu(cauthuid) {
+        if (confirm('Bạn có chắc chắn muốn sửa cầu thủ này?')) {
+            window.location.href = '/SuaCauThu?cauthuid=' + cauthuid;
+        }
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <ul class="left_menu">
+    @foreach(var item in Model.Take(8))
+    {
+        var getUrl = "https://localhost:7085/api/TrongTai/" + item.TranDauId.Trim();
+        <li class="odd">
+            <a style="cursor:pointer" onclick="showTrongTaiByTranDau('@getUrl')" class="subnav__item-link">@item.TranDauId</a>
+        </li>
+    }
+</ul>
+
+<script>
+    function showTrongTaiByTranDau(getUrl) {
+        var str = '';
+        $.ajax({
+            type: 'GET',
+            url: getUrl,
+            dataType: 'json',
+            success: function (data) {
+                $.each(data, function (key, val) {
+                    str += '<div class="prod_box">';
+                    str += '  <div class="top_prod_box"></div>';
+                    str += '  <div class="center_prod_box">';
+                    str += '    <div class="product_title"><a href="details.html">' + val.hoVaTen + '</a></div>';
+                    var linkImage = "../Images/" + $.trim(val.anh);
+                    str += '    <div class="product_img"><a href="details.html">';
+                    str += '      <img src="' + linkImage + '" alt="" border="0" width="150px">';
+                    str += '    </a></div>';
+                    str += '    <div class="prod_price"><span class="price">' + val.soNamKinhNghiem + '</span></div>';
+                    str += '  </div>';
+                    str += '  <div class="bottom_prod_box"></div>';
+                    str += '  <div class="prod_details_tab">';
+                    str += '    <a href="#" title="header=[Add to cart] body=[&nbsp;] fade=[on]">';
+                    str += '      <img src="images/cart.gif" alt="" border="0" class="left_bt">';
+                    str += '    </a>';
+                    str += '    <a href="#" title="header=[Specials] body=[&nbsp;] fade=[on]">';
+                    str += '      <img src="images/favs.gif" alt="" border="0" class="left_bt">';
+                    str += '    </a>';
+                    str += '    <a href="#" title=""><img src="images/favorites.gif" alt="" border="0" class="left_bt"></a>';
+                    str += '    <a href="details.html" class="prod_details">details</a>';
+                    str += '  </div>';
+                    str += '</div>';
+                });
+                $('#displayTrongTai').html(str);
+            },
+            error: function (xhr) {
+                alert(xhr.responseText);
+            }
+        });
+    }
+</script> *@

@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_LayoutShopper.cshtml";
+}
+@model List<Cauthu>
+@foreach(var item in Model.Take(8))
+{
+	<li class="span3">
+	<div class="product-box">
+		<p><a href="product_detail.html"><img src="@Url.Content("../Images/" + item.Anh)" alt="" style="height:400px;width:400px"></a></p>
+		<a asp-action="SuaCauThu" asp-route-cauthuid="@item.CauThuId" class="title">@item.HoVaTen</a><br>
+		<a href="products.html" class="category">@item.ViTri</a>
+		<p class="price">@item.QuocTich</p>
+	</div>
+	</li>
+}
+
+
